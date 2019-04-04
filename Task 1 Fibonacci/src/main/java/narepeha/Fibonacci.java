@@ -1,23 +1,52 @@
-package narepeha;
+/*
+  Open source project
+  2019
+ */
+
+package main.java.narepeha;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The class represents Fibonacci sequence
+ * You can launch it by calling the method start().
+ *
+ * @author Dima Narepeha
+ */
 public class Fibonacci implements Algorithm {
-    private final List<Integer> sequence = new ArrayList<>();
+    /**
+     * The value is used for Fibonacci sequence storage.
+     */
+    private final List<BigInteger> sequence = new ArrayList<>();
 
+    /**
+     * default constructor
+     * adds two initial elements
+     * into sequence.
+     */
     Fibonacci() {
-        sequence.add(1); //initial elements
-        sequence.add(1);
+        sequence.add(BigInteger.valueOf(1)); //initial elements
+        sequence.add(BigInteger.valueOf(1));
     }
 
+    /**
+     * default menu to be shown to the user while starting.
+     */
     private void printMenu() {
-        System.out.println("Enter narepeha.Fibonacci number id to be printed");
+        System.out.println("Enter Fibonacci number id to be printed");
     }
 
-    private Integer getInput(BufferedReader bufferedReader) {
+    /**
+     * returns input from user.
+     *
+     * @param bufferedReader reader the input to be read from
+     * @return Integer. Or null if failed.
+     */
+    private Integer getInput(final BufferedReader bufferedReader) {
         try {
             return Integer.valueOf(bufferedReader.readLine());
         } catch (IOException e) {
@@ -29,25 +58,47 @@ public class Fibonacci implements Algorithm {
         return null;
     }
 
-    private void printOutputFor(Integer index) {
+    /**
+     * prints an element in sequence.
+     *
+     * @param index of element
+     */
+    private void printOutputFor(final Integer index) {
         System.out.println("Output: " + sequence.get(index - 1));
     }
 
-    private void genSeqTo(int lastPosition) {
+    /**
+     * generate Fibonacci sequence
+     * to element on the lastPosition inclusive.
+     * if it is already cached, this method returns quickly.
+     *
+     * @param lastPosition position that sequence should be generated to
+     */
+    private void genSeqTo(final int lastPosition) {
         int initialSeqSize = sequence.size();
         for (int i = 0; i <= lastPosition - initialSeqSize; i++) {
-            Integer newElement = sequence.get(sequence.size() - 1) + sequence.get(sequence.size() - 2);
+            int currentSize = sequence.size();
+            BigInteger newElement = sequence.get(currentSize - 1)
+                    .add(sequence.get(currentSize - 2));
             sequence.add(newElement);
         }
     }
 
+    /**
+     * @return String that represents the class info
+     */
     @Override
     public String toString() {
-        return "narepeha.Fibonacci sequence";
+        return "Fibonacci sequence";
     }
 
+    /**
+     * Starts the class and interacts with the user.
+     *
+     * @param bufferedReader input is read through this reader
+     */
     @Override
-    public void start(BufferedReader bufferedReader) {
+    public void start(final BufferedReader bufferedReader) {
         printMenu();
         Integer index = getInput(bufferedReader);
         genSeqTo(index);

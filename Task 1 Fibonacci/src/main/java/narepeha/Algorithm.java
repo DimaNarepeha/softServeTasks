@@ -1,4 +1,4 @@
-package narepeha;
+package main.java.narepeha;
 
 import java.io.BufferedReader;
 
